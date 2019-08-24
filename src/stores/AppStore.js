@@ -265,7 +265,7 @@ export default types
      * Run validation of the completion
      */
     function runValidation(res) {
-	const code = self.validation + '; return validate(this.result, this.app)';
+	const code = self.validation + '; validate(this.result, this.app)';
 	function evalInContext(js, context) {
 	    return function() { return eval(js); }.call(context);
 	}
