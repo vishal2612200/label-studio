@@ -12,6 +12,8 @@ export default types
   .model("AppStore", {
     config: types.string,
 
+    validation: types.maybeNull(types.string),
+      
     /**
      * Task with data, id and project
      */
@@ -260,6 +262,25 @@ export default types
     }
 
     /**
+     * Run validation of the completion
+     */
+    function runValidation(res) {
+	const code = self.validation + '; validate(this.result, this.app)';
+	function evalInContext(js, context) {
+	    return function() { return eval(js); }.call(context);
+	}
+	
+	try {
+	    return evalInContext(code, {
+		app: this,
+		result: res
+	    });
+	} catch (err) {
+	    return "Validation function returned bad result: " + err;
+	}
+    }
+      
+    /**
      * Load task from URL
      */
     const loadTaskURL = flow(function*(url) {
@@ -340,6 +361,14 @@ export default types
           return;
         }
 
+        if (self.validation) {
+	    const val = self.runValidation(res);
+	    if (val) {
+		alert(val);
+		return;
+	    }
+	}
+	  
         self.markLoading(true);
 
         try {

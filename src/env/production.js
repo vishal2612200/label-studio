@@ -21,6 +21,10 @@ function getData() {
      */
     config: window.editorAppConfig,
     /**
+     * Config in XML format
+     */
+    validation: window.validationConfig,      
+    /**
      * Task ID
      */
     taskID: window.taskID,
