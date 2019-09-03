@@ -15,7 +15,7 @@ const Completion = observer(({ item, store }) => {
         item.removeHoneypot();
       }}
     >
-      Honeypot
+      Ground Truth
     </Button>
   );
 
@@ -28,7 +28,7 @@ const Completion = observer(({ item, store }) => {
         item.setHoneypot();
       }}
     >
-      Honeypot
+      Ground Truth
     </Button>
   );
 
